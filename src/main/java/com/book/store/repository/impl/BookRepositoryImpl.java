@@ -16,24 +16,28 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public Book save(Book book) {
-        try (EntityManager entityManager = this.entityManagerFactory.createEntityManager()) {
-            EntityTransaction entityTransaction = entityManager.getTransaction();
+        EntityManager entityManager = null;
+        EntityTransaction entityTransaction = null;
 
-            try {
-                entityTransaction.begin();
-                entityManager.persist(book);
-                entityTransaction.commit();
+        try {
+            entityManager = this.entityManagerFactory.createEntityManager();
+            entityTransaction = entityManager.getTransaction();
 
-                return book;
-            } catch (Exception ex) {
-                if (entityTransaction != null) {
-                    entityTransaction.rollback();
-                }
+            entityTransaction.begin();
+            entityManager.persist(book);
+            entityTransaction.commit();
 
-                throw ex;
-            }
+            return book;
         } catch (Exception ex) {
+            if (entityTransaction != null && entityTransaction.isActive()) {
+                entityTransaction.rollback();
+            }
+
             throw new RuntimeException("Can't save new book. Params: book=" + book, ex);
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
         }
     }
 
