@@ -24,29 +24,29 @@ public class BookController {
 
     @GetMapping
     public List<BookDto> getAll() {
-        return this.bookService.findAll();
+        return bookService.findAll();
     }
 
     @GetMapping("/{id}")
     public BookDto getBookById(@PathVariable Long id) {
-        return this.bookService.getById(id);
+        return bookService.getById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public BookDto createBook(@RequestBody CreateBookRequestDto bookDto) {
-        return this.bookService.save(bookDto);
+        return bookService.save(bookDto);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public BookDto updateBook(@PathVariable Long id, @RequestBody CreateBookRequestDto bookDto) {
-        return this.bookService.updateById(id, bookDto);
+        return bookService.updateById(id, bookDto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBook(@PathVariable Long id) {
-        this.bookService.deleteById(id);
+        bookService.deleteById(id);
     }
 }
