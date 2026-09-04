@@ -3,7 +3,6 @@ package com.book.store.repository.book.specification;
 import com.book.store.model.Book;
 import com.book.store.model.BookSearchParameters;
 import com.book.store.repository.specification.SpecificationBuilder;
-import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;

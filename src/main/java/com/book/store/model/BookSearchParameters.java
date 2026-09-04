@@ -16,7 +16,7 @@ public record BookSearchParameters(
             maxPrice = null;
         }
 
-        if (minPrice != null && maxPrice != null && minPrice.compareTo(maxPrice) > 0 ) {
+        if (minPrice != null && maxPrice != null && minPrice.compareTo(maxPrice) > 0) {
             throw new IllegalArgumentException("minPrice cannot be greater than maxPrice");
         }
     }
