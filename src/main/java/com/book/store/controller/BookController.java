@@ -1,9 +1,10 @@
 package com.book.store.controller;
 
 import com.book.store.dto.BookDto;
+import com.book.store.dto.BookSearchParameters;
 import com.book.store.dto.CreateBookRequestDto;
-import com.book.store.model.BookSearchParameters;
 import com.book.store.service.BookService;
+import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,7 @@ public class BookController {
     }
 
     @GetMapping("/search")
-    public List<BookDto> searchBooks(@ModelAttribute BookSearchParameters searchParameters) {
+    public List<BookDto> searchBooks(@ModelAttribute @Valid BookSearchParameters searchParameters) {
         return bookService.search(searchParameters);
     }
 
