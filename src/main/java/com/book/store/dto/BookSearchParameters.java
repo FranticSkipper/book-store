@@ -1,23 +1,16 @@
 package com.book.store.dto;
 
+import com.book.store.validation.PriceRangeValidation;
+import jakarta.validation.constraints.Min;
 import java.math.BigDecimal;
 
+@PriceRangeValidation
 public record BookSearchParameters(
         String title,
         String[] authors,
+
+        @Min(0)
         BigDecimal minPrice,
+        @Min(0)
         BigDecimal maxPrice) {
-    public BookSearchParameters {
-        if (minPrice != null && minPrice.compareTo(BigDecimal.ZERO) < 0) {
-            minPrice = null;
-        }
-
-        if (maxPrice != null && maxPrice.compareTo(BigDecimal.ZERO) < 0) {
-            maxPrice = null;
-        }
-
-        if (minPrice != null && maxPrice != null && minPrice.compareTo(maxPrice) > 0) {
-            throw new IllegalArgumentException("minPrice cannot be greater than maxPrice");
-        }
-    }
 }
