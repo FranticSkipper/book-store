@@ -1,7 +1,7 @@
 package com.book.store.repository.book.specification;
 
+import com.book.store.dto.BookSearchParameters;
 import com.book.store.model.Book;
-import com.book.store.model.BookSearchParameters;
 import com.book.store.repository.specification.SpecificationBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
