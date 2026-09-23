@@ -1,8 +1,8 @@
 package com.book.store.service;
 
 import com.book.store.dto.BookDto;
+import com.book.store.dto.BookSearchParameters;
 import com.book.store.dto.CreateBookRequestDto;
-import com.book.store.model.BookSearchParameters;
 import java.util.List;
 
 public interface BookService {

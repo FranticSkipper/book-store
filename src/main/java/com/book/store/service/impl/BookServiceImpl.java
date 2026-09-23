@@ -1,11 +1,11 @@
 package com.book.store.service.impl;
 
 import com.book.store.dto.BookDto;
+import com.book.store.dto.BookSearchParameters;
 import com.book.store.dto.CreateBookRequestDto;
 import com.book.store.exception.EntityNotFoundException;
 import com.book.store.mapper.BookMapper;
 import com.book.store.model.Book;
-import com.book.store.model.BookSearchParameters;
 import com.book.store.repository.book.BookRepository;
 import com.book.store.repository.specification.SpecificationBuilder;
 import com.book.store.service.BookService;
