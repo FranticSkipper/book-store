@@ -36,19 +36,21 @@ public class BookController {
     }
 
     @GetMapping("/search")
-    public List<BookDto> searchBooks(@ModelAttribute @Valid BookSearchParameters searchParameters) {
+    public List<BookDto> searchBooks(@ModelAttribute BookSearchParameters searchParameters) {
         return bookService.search(searchParameters);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookDto createBook(@RequestBody CreateBookRequestDto bookDto) {
+    public BookDto createBook(@RequestBody @Valid CreateBookRequestDto bookDto) {
         return bookService.save(bookDto);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public BookDto updateBook(@PathVariable Long id, @RequestBody CreateBookRequestDto bookDto) {
+    public BookDto updateBook(
+            @PathVariable Long id,
+            @RequestBody @Valid CreateBookRequestDto bookDto) {
         return bookService.updateById(id, bookDto);
     }
 
