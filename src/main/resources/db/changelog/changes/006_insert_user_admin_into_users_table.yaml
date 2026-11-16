@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: Oleg
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: "admin@gmail.com"
+              - column:
+                  name: password
+                  value: "$2a$10$1T8BPoV4/Cjw7tyT7qKlEuH.An13HieKGfjNiJobkhUn6bvt307z."
+              - column:
+                  name: first_name
+                  value: "admin"
+              - column:
+                  name: last_name
+                  value: "admin"
