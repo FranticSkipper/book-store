@@ -32,11 +32,11 @@ public class AuthenticationController {
             ),
             @ApiResponse(
                     responseCode = "409",
-                    description = "Registration failed."
+                    description = "Registration failed. "
                             + "User with current credential is already exist."
             )
     })
-    @PostMapping("/registration")
+    @PostMapping("/register")
     public UserResponseDto register(
             @RequestBody @Valid UserRegistrationRequestDto userRegistrationRequestDto)
             throws RegistrationException {
