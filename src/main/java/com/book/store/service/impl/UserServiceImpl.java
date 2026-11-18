@@ -11,13 +11,14 @@ import com.book.store.model.User;
 import com.book.store.repository.role.RoleRepository;
 import com.book.store.repository.user.UserRepository;
 import com.book.store.service.UserService;
-import java.util.HashSet;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -39,15 +40,9 @@ public class UserServiceImpl implements UserService {
                         + RoleName.USER));
 
         User user = userMapper.toModel(userRegistrationRequestDto);
-        Set<Role> newRoles = new HashSet<>();
 
-        if (user.getRoles() != null) {
-            newRoles.addAll(user.getRoles());
-        }
-
-        newRoles.add(role);
         user.setPassword(passwordEncoder.encode(userRegistrationRequestDto.password()));
-        user.setRoles(newRoles);
+        user.setRoles(Set.of(role));
 
         User newUser = userRepository.save(user);
 
