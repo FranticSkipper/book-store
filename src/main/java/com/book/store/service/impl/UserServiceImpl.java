@@ -2,8 +2,8 @@ package com.book.store.service.impl;
 
 import com.book.store.dto.external.UserRegistrationRequestDto;
 import com.book.store.dto.internal.UserResponseDto;
+import com.book.store.exception.EntityNotFoundException;
 import com.book.store.exception.RegistrationException;
-import com.book.store.exception.RoleNotFoundException;
 import com.book.store.mapper.UserMapper;
 import com.book.store.model.Role;
 import com.book.store.model.RoleName;
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
         Role role = roleRepository
                 .findByName(RoleName.USER)
                 .orElseThrow(()
-                        -> new RoleNotFoundException("Role is not found. Params: role="
+                        -> new EntityNotFoundException("Role is not found. Params: role="
                         + RoleName.USER));
 
         User user = userMapper.toModel(userRegistrationRequestDto);
