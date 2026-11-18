@@ -36,7 +36,7 @@ public class AuthenticationController {
                             + "User with current credential is already exist."
             )
     })
-    @PostMapping("/register")
+    @PostMapping("/registration")
     public UserResponseDto register(
             @RequestBody @Valid UserRegistrationRequestDto userRegistrationRequestDto)
             throws RegistrationException {
