@@ -36,7 +36,7 @@ public class SecurityConfig {
                                         "/swagger-ui/**",
                                         "/v3/api-docs/**",
                                         "/swagger-ui.html").permitAll()
-                                .requestMatchers("/api/auth/register").anonymous()
+                                .requestMatchers("/api/auth/registration").anonymous()
                                 .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
