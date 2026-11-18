@@ -32,7 +32,7 @@ public class AuthenticationController {
             ),
             @ApiResponse(
                     responseCode = "409",
-                    description = "Registration failed."
+                    description = "Registration failed. "
                             + "User with current credential is already exist."
             )
     })

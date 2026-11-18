@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,7 +32,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class BookController {
     private final BookService bookService;
 
-    @GetMapping
     @Operation(
             summary = "Get all books.",
             description = "Retrieve a paginated list of all available "
@@ -41,11 +41,12 @@ public class BookController {
                     responseCode = "200",
                     description = "Successfully retrieved a paginated list of books.")
     })
+    @GetMapping
+    @PreAuthorize("hasRole('USER')")
     public Page<BookDto> getAll(Pageable pageable) {
         return bookService.findAll(pageable);
     }
 
-    @GetMapping("/{id}")
     @Operation(
             summary = "Get book by ID.",
             description = "Retrieve a book based on its unique ID.")
@@ -58,6 +59,8 @@ public class BookController {
                     description = "Book not found with the provided ID."
             )}
     )
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     public BookDto getBookById(@PathVariable Long id) {
         return bookService.getById(id);
     }
@@ -79,7 +82,6 @@ public class BookController {
         return bookService.search(searchParameters, pageable);
     }
 
-    @PostMapping
     @Operation(
             summary = "Create new book.",
             description = "Create new book entity based on the input data.")
@@ -93,12 +95,13 @@ public class BookController {
                     description = "Invalid input data provided."
             )
     })
+    @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public BookDto createBook(@RequestBody @Valid CreateBookRequestDto bookDto) {
         return bookService.save(bookDto);
     }
 
-    @PutMapping("/{id}")
     @Operation(
             summary = "Update book.",
             description = "Update existing book with provided data.")
@@ -116,6 +119,8 @@ public class BookController {
                     description = "Book with provided ID wasn't found."
             )
     })
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.OK)
     public BookDto updateBook(
             @PathVariable Long id,
@@ -123,7 +128,6 @@ public class BookController {
         return bookService.updateById(id, bookDto);
     }
 
-    @DeleteMapping("/{id}")
     @Operation(
             summary = "Delete book.",
             description = "Delete book by its ID.")
@@ -137,6 +141,8 @@ public class BookController {
                     description = "Book with provided ID wasn't found."
             )
     })
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBook(@PathVariable Long id) {
         bookService.deleteById(id);
